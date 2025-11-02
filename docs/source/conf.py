@@ -2,20 +2,24 @@ import os
 import sys
 from datetime import date
 
-# ---- Project metadata ----
-project = "NDIF Ray NN API"
+# ---------------------------------------------------------
+# Project metadata
+# ---------------------------------------------------------
+project = "NDIF Ray – nn API"
 author = "NDIF Team"
-copyright = f"{date.today().year}, NDIF"
+copyright = f"{date.today().year}, {author}"
 
-# ---- General Sphinx config ----
+# ---------------------------------------------------------
+# Sphinx extensions
+# ---------------------------------------------------------
 extensions = [
-    "myst_parser",            # optional if you keep everything in .rst
-    "sphinx.ext.napoleon",    # Google/Numpy docstrings, if you use them
-    "sphinx.ext.autosectionlabel",
-    "autoapi.extension",      # <-- the key extension
+    "myst_parser",             # Markdown pages (optional but handy)
+    "sphinx.ext.napoleon",     # Google/Numpy-style docstrings
+    #"sphinx.ext.autosectionlabel",
+    "autoapi.extension",       # <-- AutoAPI for source parsing
 ]
 
-# You can keep source_suffix default; adding .md if you want Markdown landing pages:
+# Recognize both .rst and .md (optional)
 source_suffix = {
     ".rst": "restructuredtext",
     ".md": "markdown",
@@ -24,51 +28,52 @@ source_suffix = {
 # Theme
 html_theme = "furo"
 
-# If you *haven't* renamed the top-level "logging" dir yet, protect stdlib imports:
-# Force stdlib logging to resolve before local "logging/"
-# (Best fix is still renaming your "logging" dir.)
-import logging  # noqa: F401
-
-# ---- AutoAPI: scope to just ray/nn ----
-# IMPORTANT: AutoAPI parses source; it does *not* import your package.
-# Point it at the directory that directly contains the modules you want documented.
+# ---------------------------------------------------------
+# Path setup (not strictly needed for AutoAPI since it parses
+# source files directly, but safe to keep for future)
+# ---------------------------------------------------------
+# repo_root = <docs/source>/../../
+#repo_root = os.path.abspath(os.path.join(__file__, "..", ".."))
 repo_root = os.path.abspath(os.path.join(__file__, "..", "..", ".."))
+# code_root = <repo_root>/src/services/ray/src
 code_root = os.path.join(repo_root, "src", "services", "ray", "src")
 
+# If you later add manual autodoc pages (not AutoAPI), uncomment:
+# sys.path.insert(0, code_root)
+
+# ---------------------------------------------------------
+# AutoAPI configuration – scope ONLY to ndif_ray/nn
+# ---------------------------------------------------------
 autoapi_type = "python"
-autoapi_dirs = [os.path.join(code_root, "ray", "nn")]    # <-- only nn
+autoapi_dirs = [os.path.join(code_root, "ndif_ray", "nn")]  # <-- target
+autoapi_root = "reference/api/ndif_ray/nn"                  # where pages land (under docs/source)
 
-# Where generated .rst files will be placed *inside* docs/source
-autoapi_root = "reference/api/services/ray/nn"
-
-# Optional: limit files inside nn (keeps things explicit)
-autoapi_python_use_implicit_namespaces = True
+# Optional filters
 autoapi_file_patterns = ["*.py", "**/*.py"]
-autoapi_ignore = ["**/tests/**", "**/__init__.py"]   # tune to taste
+autoapi_ignore = ["**/tests/**", "**/__init__.py"]  # adjust as you like
+autoapi_keep_files = True  # keep generated .rst (useful to inspect diffs)
 
-# Useful display options
 autoapi_options = [
     "members",
     "undoc-members",
     "show-inheritance",
     "show-module-summary",
-    "special-members",        # shows __call__, etc.
-    "imported-members",       # only if you want re-exported items; can be noisy
+    # "imported-members",  # enable if you re-export many symbols
+    "special-members",     # e.g., __call__
 ]
 
-# If any modules try to import heavy/absent deps in annotations, add them here to silence:
-# (AutoAPI doesn’t import, but some templates/intersphinx cross-refs might)
+# ---------------------------------------------------------
+# If your type hints or docs reference heavy deps, mock them
+# (AutoAPI doesn't import, but cross-refs or templates can)
+# ---------------------------------------------------------
 autodoc_mock_imports = [
-    "ray",          # real Ray if it’s not installed (only needed if cross-refs)
     "torch",
     "numpy",
+    # Add others if needed
 ]
 
-# Keep generated files to debug what AutoAPI produced (optional)
-autoapi_keep_files = True
-
-# Master docs
+# ---------------------------------------------------------
+# Sphinx basics
+# ---------------------------------------------------------
 master_doc = "index"
-
-# Clean, short URLs (optional)
 html_permalinks_icon = "§"
