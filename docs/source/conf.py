@@ -44,8 +44,7 @@ html_theme = "furo"
 #repo_root = os.path.abspath(os.path.join(__file__, "..", ".."))
 repo_root = os.path.abspath(os.path.join(__file__, "..", "..", ".."))
 # code_root = <repo_root>/src/services/ray/src
-#code_root = os.path.join(repo_root, "src", "services", "ray", "src")
-code_root = os.path.join(repo_root, "src", "services", "ray", "src", "ndif_ray")
+code_root = os.path.join(repo_root, "src", "services", "ray", "src")
 # If you later add manual autodoc pages (not AutoAPI), uncomment:
 # sys.path.insert(0, code_root)
 
