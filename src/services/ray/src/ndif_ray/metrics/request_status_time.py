@@ -1,7 +1,9 @@
 
 from typing import TYPE_CHECKING
 
-from . import Metric
+#from . import Metric
+from .metric import Metric
+
 import time
 
 if TYPE_CHECKING:
