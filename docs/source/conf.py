@@ -46,8 +46,9 @@ code_root = os.path.join(repo_root, "src", "services", "ray", "src")
 # ---------------------------------------------------------
 autoapi_type = "python"
 autoapi_dirs = [os.path.join(code_root, "ndif_ray", "nn")]  # <-- target
-autoapi_root = "reference/api/ndif_ray/nn"                  # where pages land (under docs/source)
 
+#autoapi_root = "reference/api/ndif_ray/nn"                  # where pages land (under docs/source)
+autoapi_root = "reference/api"
 # Optional filters
 autoapi_file_patterns = ["*.py", "**/*.py"]
 autoapi_ignore = ["**/tests/**", "**/__init__.py"]  # adjust as you like
