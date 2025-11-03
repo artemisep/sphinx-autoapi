@@ -1,4 +1,5 @@
-from . import Metric
+#from . import Metric
+from .metric import Metric
 
 
 class ModelLoadTimeMetric(Metric):

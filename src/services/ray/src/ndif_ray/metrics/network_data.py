@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, Any
-from . import Metric
+#from . import Metric
+from .metric import Metric
 from fastapi import Request
 if TYPE_CHECKING:
 

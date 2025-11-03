@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
-from . import Metric
+#from . import Metric
+from .metric import Metric
 
 if TYPE_CHECKING:
 
