@@ -9,6 +9,14 @@ project = "NDIF Ray – nn API"
 author = "NDIF Team"
 copyright = f"{date.today().year}, {author}"
 
+#sys.path points to the top-level
+#sys.path.insert(0, os.path.abspath("../../src"))
+# 1) Put the *package parent* of ndif_ray on sys.path so imports are ndif_ray.*
+#    (…/src/services/ray/src)
+PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..", ".."))
+PKG_PARENT   = os.path.join(PROJECT_ROOT, "src", "services", "ray", "src")
+sys.path.insert(0, PKG_PARENT)
+
 # ---------------------------------------------------------
 # Sphinx extensions
 # ---------------------------------------------------------
@@ -45,7 +53,9 @@ code_root = os.path.join(repo_root, "src", "services", "ray", "src")
 # AutoAPI configuration – scope ONLY to ndif_ray/nn
 # ---------------------------------------------------------
 autoapi_type = "python"
-autoapi_dirs = [os.path.join(code_root, "ndif_ray", "nn")]  # <-- target
+#autoapi_dirs = [os.path.join(code_root, "ndif_ray", "nn")]  # <-- target
+#autoapi_dirs = [os.path.abspath("../../src")] 
+autoapi_dirs = [PKG_PARENT]
 
 #autoapi_root = "reference/api/ndif_ray/nn"                  # where pages land (under docs/source)
 autoapi_root = "reference/api"

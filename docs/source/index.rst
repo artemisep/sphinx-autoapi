@@ -5,6 +5,7 @@ NDIF Ray NN API
    :maxdepth: 2
    :caption: API Reference
 
-   reference/api/ndif_ray/nn/index
+   ..reference/api/ndif_ray/nn/index
+   reference/api/ndif_ray/index
    
 
