@@ -11,7 +11,7 @@ import nnsight
 
 from ..parallel_dims import ParallelDims
 from ..util import load_hf_model_from_cache
-from . import parallelize_model
+#from . import parallelize_model
 
 
 def main(local_rank: int, world_rank: int, world_size: int, model_id: str):

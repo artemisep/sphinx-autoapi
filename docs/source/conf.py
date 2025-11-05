@@ -1,6 +1,8 @@
 import os
 import sys
 from datetime import date
+#added
+import types
 
 # ---------------------------------------------------------
 # Project metadata
@@ -80,10 +82,22 @@ autodoc_mock_imports = [
     "torch",
     "numpy",
     # Add others if needed
+    "ray",
+    "ray.serve",
+    "ray.dashboard",
+    "ray.dashboard.modules",
+    "ray.dashboard.modules.serve",
+    "ray.dashboard.modules.serve.sdk",
 ]
+
+# AutoAPI also respects this in recent versions
+autoapi_python_mock_imports = list(autodoc_mock_imports)
 
 # ---------------------------------------------------------
 # Sphinx basics
 # ---------------------------------------------------------
 master_doc = "index"
 html_permalinks_icon = "§"
+
+#added
+autoapi_python_use_implicit_namespaces = True
