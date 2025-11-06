@@ -4,6 +4,28 @@ from datetime import date
 #added
 import types
 
+# Belt-and-suspenders: make sure mocked modules exist AND are attributes of parents.
+def _ensure_mock_tree(modname: str):
+    parts = modname.split(".")
+    parent = None
+    for i in range(1, len(parts) + 1):
+        name = ".".join(parts[:i])
+        mod = sys.modules.get(name)
+        if mod is None:
+            mod = types.ModuleType(name)
+            sys.modules[name] = mod
+        if parent is not None:
+            setattr(parent, parts[i-1], mod)  # expose child on parent for "from parent import child"
+        parent = mod
+
+def _ensure_mock(modname):
+    if modname in sys.modules:
+        return sys.modules[modname]
+    module = types.ModuleType(modname)
+    sys.modules[modname] = module
+    return module
+
+
 # ---------------------------------------------------------
 # Project metadata
 # ---------------------------------------------------------
@@ -89,6 +111,18 @@ autodoc_mock_imports = [
     "ray.dashboard.modules.serve",
     "ray.dashboard.modules.serve.sdk",
 ]
+
+for name in autodoc_mock_imports:
+    _ensure_mock_tree(name)
+    
+
+for name in autodoc_mock_imports:
+    # Create parent packages first: "ray.dashboard.modules.serve.sdk"
+    parts = name.split(".")
+    for i in range(1, len(parts)+1):
+        _ensure_mock(".".join(parts[:i]))
+        
+
 
 # AutoAPI also respects this in recent versions
 autoapi_python_mock_imports = list(autodoc_mock_imports)
