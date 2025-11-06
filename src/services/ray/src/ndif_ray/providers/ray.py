@@ -3,7 +3,8 @@ import os
 import ray
 from ray import serve
 
-from . import Provider
+#from . import Provider
+from ndif_ray.providers import Provider
 from .util import verify_connection
 
 logger = logging.getLogger("ndif")

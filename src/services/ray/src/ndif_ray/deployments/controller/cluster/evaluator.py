@@ -5,7 +5,7 @@ import torch
 
 from nnsight.modeling.mixins import RemoteableMixin
 
-from ....types import MODEL_KEY
+from ....ndif_ray_types import MODEL_KEY
 
 logger = logging.getLogger("ndif")
 

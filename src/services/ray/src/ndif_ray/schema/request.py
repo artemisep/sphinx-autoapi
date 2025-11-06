@@ -13,7 +13,8 @@ from nnsight import NNsight
 from nnsight.schema.request import RequestModel
 from nnsight.schema.response import ResponseModel
 
-from ..types import API_KEY, REQUEST_ID
+#from ..types import API_KEY, REQUEST_ID
+from ..ndif_ray_types import API_KEY, REQUEST_ID
 from .mixins import ObjectStorageMixin
 from .response import BackendResponseModel
 
