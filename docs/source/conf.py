@@ -78,7 +78,10 @@ code_root = os.path.join(repo_root, "src", "services", "ray", "src")
 autoapi_type = "python"
 #autoapi_dirs = [os.path.join(code_root, "ndif_ray", "nn")]  # <-- target
 #autoapi_dirs = [os.path.abspath("../../src")] 
-autoapi_dirs = [PKG_PARENT]
+#autoapi_dirs = [PKG_PARENT]
+
+autoapi_dirs = [os.path.join(PKG_PARENT, "ndif_ray")]
+
 
 #autoapi_root = "reference/api/ndif_ray/nn"                  # where pages land (under docs/source)
 autoapi_root = "reference/api"
@@ -135,3 +138,10 @@ html_permalinks_icon = "§"
 
 #added
 autoapi_python_use_implicit_namespaces = True
+
+#for debugging
+print("[CONF] PROJECT_ROOT =", PROJECT_ROOT)
+print("[CONF] PKG_PARENT   =", PKG_PARENT)
+print("[CONF] autoapi_dirs =", autoapi_dirs)
+print("[CONF] sys.path[0]  =", sys.path[0])
+
