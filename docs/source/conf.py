@@ -24,3 +24,13 @@ autoapi_type = "python"
 autoapi_dirs = [os.path.join(PKG_PARENT, "ndif_ray")]   # scan full package
 autoapi_root = "reference/api"
 
+autoapi_ignore = [
+    # exclude whole subpackages
+    "*/ndif_ray/metrics/*",
+    "*/ndif_ray/config/*",
+    "*/ndif_ray/ndif_logging/*",
+    "*/ndif_ray/providers/*",
+    # exclude single file modules
+    "*/ndif_ray/ndif_ray_types.py",
+]
+
