@@ -13,4 +13,7 @@ autoapi_type = "python"
 autoapi_dirs = [os.path.join(PKG_PARENT, "ndif_ray")]  # scan the package folder itself
 autoapi_root = "reference/api"
 
+autoapi_keep_files = True
+
+
 
