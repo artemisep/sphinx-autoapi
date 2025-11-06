@@ -139,6 +139,13 @@ html_permalinks_icon = "§"
 #added
 autoapi_python_use_implicit_namespaces = True
 
+#temporary workaround for persistent error of Cannot resolve import of unknown module 
+# ndif_ray.providers in ndif_ray.providers.raytelling AutoAPI to skip this module
+autoapi_ignore = [
+    "*/ndif_ray/providers/ray.py",
+]
+
+
 #for debugging
 print("[CONF] PROJECT_ROOT =", PROJECT_ROOT)
 print("[CONF] PKG_PARENT   =", PKG_PARENT)
