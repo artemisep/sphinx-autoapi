@@ -37,6 +37,7 @@ autoapi_ignore = [
     "*/ndif_ray/config/*",
     "*/ndif_ray/ndif_logging/*",
     "*/ndif_ray/providers/*",
+    "*/ndif_ray/schema/*",
     # exclude single file modules
     "*/ndif_ray/ndif_ray_types.py",
 ]
