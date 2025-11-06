@@ -92,11 +92,11 @@ autoapi_keep_files = True  # keep generated .rst (useful to inspect diffs)
 
 autoapi_options = [
     "members",
-    "undoc-members",
+    #"undoc-members",
     "show-inheritance",
-    "show-module-summary",
-    # "imported-members",  # enable if you re-export many symbols
-    "special-members",     # e.g., __call__
+    #"show-module-summary",
+    #"imported-members",  # enable if you re-export many symbols
+    #"special-members",     # e.g., __call__
 ]
 
 # ---------------------------------------------------------
@@ -113,6 +113,11 @@ autodoc_mock_imports = [
     "ray.dashboard.modules",
     "ray.dashboard.modules.serve",
     "ray.dashboard.modules.serve.sdk",
+    #for duplicate id warning msg
+    #comment out temp as the mock made schema like a plain module
+    #not a package and this causing import ndif_ray.schema.request 
+    #fails message
+    "ndif_ray.schema.mixins",
 ]
 
 for name in autodoc_mock_imports:
@@ -143,6 +148,7 @@ autoapi_python_use_implicit_namespaces = True
 # ndif_ray.providers in ndif_ray.providers.raytelling AutoAPI to skip this module
 autoapi_ignore = [
     "*/ndif_ray/providers/ray.py",
+    #"*/ndif_ray/schema/mixins.py",
 ]
 
 
@@ -151,4 +157,14 @@ print("[CONF] PROJECT_ROOT =", PROJECT_ROOT)
 print("[CONF] PKG_PARENT   =", PKG_PARENT)
 print("[CONF] autoapi_dirs =", autoapi_dirs)
 print("[CONF] sys.path[0]  =", sys.path[0])
+
+print("[CONF] autoapi_type =", globals().get("autoapi_type"))
+print("[CONF] autoapi_dirs =", globals().get("autoapi_dirs"))
+print("[CONF] autoapi_root =", globals().get("autoapi_root"))
+print("[CONF] autoapi_ignore =", globals().get("autoapi_ignore"))
+print("[CONF] autoapi_options =", globals().get("autoapi_options"))
+print("[CONF] sys.path[0] =", sys.path[0])
+
+# Also ensure the extension is loaded
+print("[CONF] extensions has autoapi:", "autoapi.extension" in extensions)
 
