@@ -16,6 +16,7 @@ from ray.serve.schema import (
     ServeInstanceDetails,
 )
 from ...ndif_ray_types import MODEL_KEY, RAY_APP_NAME, NODE_ID
+#from ndif_ray.ndif_ray_types import MODEL_KEY, RAY_APP_NAME, NODE_ID
 from ...ndif_logging.logger import set_logger
 from ...providers.objectstore import ObjectStoreProvider
 from ...providers.socketio import SioProvider

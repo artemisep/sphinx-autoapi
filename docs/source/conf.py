@@ -8,7 +8,10 @@ autodoc_mock_imports = [
 ]
 autoapi_python_mock_imports = list(autodoc_mock_imports)
 
+suppress_warnings = ["autoapi.python_import_resolution"]
+
 import os, sys, types
+
 
 # 2) Ensure mocked submodules exist and are attached to their parents
 def _ensure_mock_tree(modname: str):
