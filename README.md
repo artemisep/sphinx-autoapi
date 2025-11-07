@@ -1,0 +1,1 @@
+this is an experimental repo for autodoc of ndif ray service.  Ray service code is copied over from ndif repo.  Sphinx complaining about directory structure and name of some module overshadowing python standard lib.  Therefore, directory structure and naming of some directories/module have to be changed
