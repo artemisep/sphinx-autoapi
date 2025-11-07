@@ -1,5 +1,4 @@
-
-
+import os, sys, types
 # 1) Tell both autodoc and AutoAPI to mock this module
 autodoc_mock_imports = [
     # keep any existing mocks...
@@ -7,11 +6,6 @@ autodoc_mock_imports = [
     "ndif_ray.ndif_ray_types", #doesn't need autodoc, in ignore list, mock for fix import err
 ]
 autoapi_python_mock_imports = list(autodoc_mock_imports)
-
-suppress_warnings = ["autoapi.python_import_resolution"]
-
-import os, sys, types
-
 
 # 2) Ensure mocked submodules exist and are attached to their parents
 def _ensure_mock_tree(modname: str):
@@ -36,23 +30,14 @@ setattr(mock, "MODEL_KEY", "MODEL_KEY")
 setattr(mock, "RAY_APP_NAME", "RAY_APP_NAME")
 setattr(mock, "NODE_ID", "NODE_ID")
 
-# Tell Sphinx/AutoAPI to mock this module too (belt-and-suspenders)
-autodoc_mock_imports = ["ndif_ray.ndif_ray_types"]
-autoapi_python_mock_imports = list(autodoc_mock_imports)
-    
 print("[CONF] mocked?", "ndif_ray.ndif_ray_types" in sys.modules)
 print("[CONF] MODEL_KEY preset?", getattr(sys.modules.get("ndif_ray.ndif_ray_types"), "MODEL_KEY", None))
 
-'''
-#If controller.py reads those constants at import-time, attach dummies to the mock:
-#so attribute access won's fail
-m = sys.modules.get("ndif_ray.ndif_ray_types")
-if m is not None:
-    setattr(m, "MODEL_KEY", "MODEL_KEY")
-    setattr(m, "RAY_APP_NAME", "RAY_APP_NAME")
-    setattr(m, "NODE_ID", "NODE_ID")
-'''
-    
+suppress_warnings = [
+    "autoapi.python_import_resolution",
+    "ref.class",   # suppress unresolved class refs
+    # If necessary, also: "ref.python", "ref.py", but start with "ref.class"
+]
 
 extensions = [
     "autoapi.extension",
@@ -61,15 +46,6 @@ extensions = [
 ]
 
 autoapi_keep_files = True
-
-#whitelist the missing refs from ignored module
-nitpicky = True  # (optional) be strict about references; we’ll whitelist specific misses
-nitpick_ignore = [
-    ("py:class", "ndif_ray.ndif_ray_types.MODEL_KEY"),
-    ("py:class", "ndif_ray.ndif_ray_types.RAY_APP_NAME"),
-    ("py:class", "ndif_ray.ndif_ray_types.NODE_ID"),
-]
-
 
 
 PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..", ".."))
@@ -97,6 +73,30 @@ autoapi_ignore = [
     # exclude single file modules
     "*/ndif_ray/ndif_ray_types.py",
 ]
+
+#whitelist the missing refs from ignored module
+nitpicky = True  # (optional) be strict about references; we’ll whitelist specific misses
+
+#try exact ignores for all likely role variants
+nitpick_ignore = [
+    # class role, both domainless and python-domain
+    ("class",   "ndif_ray.ndif_ray_types.MODEL_KEY"),
+    ("py:class","ndif_ray.ndif_ray_types.MODEL_KEY"),
+    ("class",   "ndif_ray.ndif_ray_types.RAY_APP_NAME"),
+    ("py:class","ndif_ray.ndif_ray_types.RAY_APP_NAME"),
+    ("class",   "ndif_ray.ndif_ray_types.NODE_ID"),
+    ("py:class","ndif_ray.ndif_ray_types.NODE_ID"),
+
+    # if AutoAPI rendered them as data (sometimes happens for “constant-like” names)
+    ("py:data", "ndif_ray.ndif_ray_types.MODEL_KEY"),
+    ("py:data", "ndif_ray.ndif_ray_types.RAY_APP_NAME"),
+    ("py:data", "ndif_ray.ndif_ray_types.NODE_ID"),
+]
+
+nitpick_ignore_regex = [
+    (r"(?:py:class|class|py:data)", r"~?ndif_ray\.ndif_ray_types\.(?:MODEL_KEY|RAY_APP_NAME|NODE_ID)"),
+]
+
 
 #temp print
 print("[CONF] autoapi_dirs =", autoapi_dirs)
