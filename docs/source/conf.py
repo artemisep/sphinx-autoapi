@@ -37,6 +37,7 @@ suppress_warnings = [
     "autoapi.python_import_resolution",
     "ref.class",   # suppress unresolved class refs
     # If necessary, also: "ref.python", "ref.py", but start with "ref.class"
+     "ref.obj", 
 ]
 
 extensions = [
@@ -91,6 +92,10 @@ nitpick_ignore = [
     ("py:data", "ndif_ray.ndif_ray_types.MODEL_KEY"),
     ("py:data", "ndif_ray.ndif_ray_types.RAY_APP_NAME"),
     ("py:data", "ndif_ray.ndif_ray_types.NODE_ID"),
+    #for warning py:obj reference target not found: enum.Enum
+    ("py:obj", "enum.Enum"),
+    ("py:obj", "enum.IntEnum"),
+    ("py:obj", "pydantic.BaseModel"),
 ]
 
 nitpick_ignore_regex = [
