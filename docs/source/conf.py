@@ -62,6 +62,15 @@ extensions = [
 
 autoapi_keep_files = True
 
+#whitelist the missing refs from ignored module
+nitpicky = True  # (optional) be strict about references; we’ll whitelist specific misses
+nitpick_ignore = [
+    ("py:class", "ndif_ray.ndif_ray_types.MODEL_KEY"),
+    ("py:class", "ndif_ray.ndif_ray_types.RAY_APP_NAME"),
+    ("py:class", "ndif_ray.ndif_ray_types.NODE_ID"),
+]
+
+
 
 PROJECT_ROOT = os.path.abspath(os.path.join(__file__, "..", "..", ".."))
 PKG_PARENT   = os.path.join(PROJECT_ROOT, "src", "services", "ray", "src")
